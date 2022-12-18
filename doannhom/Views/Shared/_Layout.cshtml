@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        ul li {
+            
+        }
+
+        ul li:hover {
+        }
+
+        ul li a:hover {
+            background-color: lightgreen;
+        }      
+
+    </style>
+</head>
+@using doannhom.Models
+<body>
+    <div class="container">
+        <div class="row">
+            <img class="w-100" src="/Content/HinhAnh/backgroundshop.jpg" />
+        </div>
+        @*<div class="row alert-primary">
+                <div class="col-md-8">
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link" href="/Home/TrangChu">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Home/SanPham">Sản phẩm</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Home/DangNhap">Đăng nhập</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Home/DangKy">Đăng ký</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Home/LienHe">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <form class="form-inline">
+                        <input type="text" id="txtSearch" name="txtSearch" class="w-75" placeholder="Search" />
+                        <button class="btn btn-outline-success">Search</button>
+                    </form>
+                </div>
+            </div>*@
+        <div class="row bg-success ">
+            <div class="col-md-3 mt-4">
+                <form action="/Home/XuLyTK" method="post">
+                    @*<input class="form-control" type="text" name="txtSearch" />
+                        <input class="form-control" type="submit" value="Tìm" />*@
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="text" name="txtSearch" id="form1" class="form-control text-dark" placeholder="Tìm kiếm sản phẩm" />
+                        </div>
+                        <input type="submit" class="btn btn-success" value="Tìm">
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2 mt-4 ">
+                <a href="/Home/TrangChu" class="text-dark">Trang chủ</a>
+            </div>
+            <div class="col-md-2 mt-4 ">
+                <a href="/Home/LienHe" class="text-dark">Liên hệ</a>
+            </div>
+            <div class="col-md-2  mt-4 ">
+                <a href="/Home/LichSuMuaHang" class="text-dark">Lịch sử mua hàng</a>
+            </div>
+            <div class="col-md-3 mt-4 ">
+                @if (Session["khachhang"] == null)
+                {
+                    <a href="/Home/DangKy" class="text-dark ">Đăng ký</a>
+                    <a href="/Home/DangNhap" class="text-dark">Đăng nhập</a>
+                    <p>Bạn chưa đăng nhập</p>
+                }
+                <a href="/Home/HTGioHang" class="text-dark">
+                    <img src="~/Content/Images/cart.png" width="15" height="15" />
+                    Giỏ hàng
+                    (
+                    @{
+                        GioHang g = Session["gio"] as GioHang;
+                        if (g != null)
+                        {
+                            <span>@g.SoMatHang()</span>
+                        }
+                        else
+                        {
+                            <span>0</span>
+                        }
+                    }
+                    )<br />
+
+                    @{
+                        if (Session["khachhang"] != null)
+                        {
+                            var k = Session["khachhang"] as KhachHang;
+                            <p>Chào bạn, @k.TenKH</p>
+                            <a href="/Home/DangXuat"><img src="~/Content/HinhAnh/Button-Turn-Off-icon.png" width="40" height="40" class="text-dark" />Đăng xuất</a>
+                        }
+                    }
+
+                </a>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div>DANH MỤC HÀNG HÓA</div>
+                @Html.Action("HTLoaiHang", "Home")
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/jquery-3.3.1.min.js"></script>
+</body>
+</html>

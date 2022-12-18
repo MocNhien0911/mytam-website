@@ -1,0 +1,20 @@
+﻿@using doannhom.Models
+@model List<ChiTiet>
+
+<table>
+    <tr>
+        <td>Mã hàng</td>
+        <td>Tên hàng</td>
+        <td>Đơn giá</td>
+        <td>Số lượng</td>
+    </tr>
+    @foreach (var ct in Model)
+    {
+        <tr>
+            <td>@ct.MaHang</td>
+            <td>@ct.MatHang.TenHang</td>
+            <td>@ct.MatHang.Gia</td>
+            <td>@ct.SoLuong</td>
+        </tr>
+    }
+</table>

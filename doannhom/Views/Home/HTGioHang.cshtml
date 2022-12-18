@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "HTGioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using doannhom.Models;
+@model GioHang
+
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>..</text>
+    }
+}
+
+<h2></h2>
+@if (Model == null || Model.SoMatHang() == 0)
+{
+    <p>Giỏ hàng rỗng!</p>
+}
+else
+{
+
+
+    <h2>Thông tin giỏ hàng đã chọn</h2>
+    <table class="table">
+        <tr>
+            <td>Tên hàng</td>
+            <td>Mô tả</td>
+            <td>Hình ảnh</td>
+            <td>Giá</td>
+            <td>Số lượng</td>
+            <td>Thành tiền</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        @foreach (CartItem item in Model.lst)
+        {
+            <tr>
+                <td>@item.sTenHang</td>
+                <td>@Truncate(item.sMoTa, 30)</td>
+                <td><img src="~/Content/HinhAnh/@item.sHinhAnh" width="100" height="100" /></td>
+                <td>@item.fGia</td>
+                <td>@item.iSoLuong</td>
+                <td>@item.ThanhTien</td>
+                <td>
+                    @Html.ActionLink("Chi tiết mặt hàng", "ChiTiet", "Home", new { id = @item.iMaHang }, new { @class = "btn btn-danger" })
+                </td>
+                <td>
+                    @Html.ActionLink("Xóa", "Xoa1MatHang", "Home", new { id = @item.iMaHang }, new { @class = "btn btn-danger" })
+                </td>
+                <td><a href="#" class="btn btn-secondary">Sửa</a></td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3">Tổng</td>
+            <td class="text-danger">@Model.TongSLHang()</td>
+            <td></td>
+            <td class="text-danger">@String.Format("{0:#,##}", Model.TongThanhTien()) đ</td>
+            <td><a href="/Home/XoaGioHang" class="btn btn-danger">Xóa giỏ hàng</a></td>
+            <td colspan="2">
+                @Html.ActionLink("Đặt hàng", "XacNhanThongTin", "Home", new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    </table>
+}

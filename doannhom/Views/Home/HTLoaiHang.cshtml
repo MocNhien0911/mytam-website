@@ -1,0 +1,12 @@
+﻿@using doannhom.Models
+@model List<LoaiHang>
+
+<h2></h2>
+<ul class="nav flex-column">
+    @foreach(var lh in Model)
+    {
+        <li class="nav-item border">
+            @Html.ActionLink(@lh.TenLoai, "HTTheoLoaiHang", "Home", new { id = @lh.MaLoai }, new { @class = "nav-link" })
+        </li>
+    }
+</ul>

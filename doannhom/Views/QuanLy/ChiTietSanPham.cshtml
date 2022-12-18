@@ -1,0 +1,41 @@
+﻿@model doannhom.Models.MatHang
+
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2>Thông tin chi tiết sản phẩm</h2>
+<fieldset>
+
+    <div class="container">
+        <div class="row">
+            <table>
+                <tr>
+                    <td><b>Mã Loại</b></td>
+                    <td>@Html.DisplayFor(model => model.MaLoai)</td>
+                </tr>
+                <tr>
+                    <td width="150"><b>Tên sản phẩm</b></td>
+                    <td>@Html.DisplayFor(model => model.TenHang)</td>
+                </tr>
+                <tr>
+                    <td><b>Mô tả</b></td>
+                    <td>@Html.DisplayFor(model => model.MoTa)</td>
+                </tr>
+                <tr>
+                    <td><b>Hình ảnh</b></td>
+                    <td><img src="~/Content/HinhAnh/@Model.HinhAnh" width="250" height="250" /></td>
+                </tr>
+                <tr>
+                    <td><b>Giá</b></td>
+                    <td>@String.Format("{0:0,0}", Model.Gia) VNĐ</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Sửa", "SuaSanPham", new { id = Model.MaHang }) |
+    @Html.ActionLink("Trở về trang sản phẩm", "SanPham")
+</p>

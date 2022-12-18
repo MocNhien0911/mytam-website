@@ -1,0 +1,57 @@
+﻿@model doannhom.Models.MatHang
+
+@{
+    ViewBag.Title = "XoaSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>XÁC NHẬN XÓA</h2>
+
+<h3>Bạn có muốn xóa sản phẩm này?</h3>
+<fieldset>
+    <legend></legend>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.MaLoai)
+    </div>*@
+    <div class="display-field">
+        <b>Mã Loại: </b> @Html.DisplayFor(model => model.MaLoai)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.TenHang)
+    </div>*@
+    <div class="display-field">
+        <b>Tên sản phẩm: </b> @Html.DisplayFor(model => model.TenHang)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.MoTa)
+    </div>*@
+    <div class="display-field">
+        <b>Mô tả: </b> @Html.DisplayFor(model => model.MoTa)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.HinhAnh)
+    </div>*@
+    <div class="display-field">
+        @*@Html.DisplayFor(model => model.HinhAnh)*@
+        <b>Mô tả: </b><img src="~/Content/HinhAnh/@Model.HinhAnh" width="250" height="250" />
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.Gia)
+    </div>*@
+    <div class="display-field">
+        @*@Html.DisplayFor(model => model.Gia)*@
+        <b>Giá: </b>@String.Format("{0:0,0}", Model.Gia) VNĐ
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("VỀ TRANG SẢN PHẨM", "SanPham")
+    </p>
+}

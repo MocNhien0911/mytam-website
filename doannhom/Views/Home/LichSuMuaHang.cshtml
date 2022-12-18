@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "LichSuMuaHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using doannhom.Models
+@model List<HoaDon>
+
+<h2>Lịch sử mua hàng</h2>
+<table class="table">
+    <tr>
+        <th>Mã hóa đơn</th>
+        <th>Ngày hóa đơn</th>
+        <th>Ngày giao</th>
+        <th>Số lượng / thành tiền</th>
+    </tr>
+    @foreach(var mh in Model)
+    {
+        <tr>
+            <td>@mh.MaHD</td>
+            <td>@mh.NgayHoaDon</td>
+            <td>@mh.NgayGiao</td>
+            <td class="text-center">
+                <div class="nav navbar">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" id="dsct" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                            @Html.Action("ThongKe", "Home", new { mhd = mh.MaHD })
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dsct">
+                            @Html.Action("LietKeHoaDon", "Home", new { mhd = mh.MaHD })
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>

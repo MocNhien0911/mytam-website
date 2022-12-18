@@ -1,0 +1,81 @@
+﻿@model doannhom.Models.MatHang
+
+@{
+    ViewBag.Title = "SuaSanPham";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2></h2>
+
+@using (Html.BeginForm("SuaSanPham", "QuanLy", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        @Html.HiddenFor(model => model.MaHang)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaHang, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div style="font:18px; padding: 5px 0 0 5px;">@Model.MaHang</div>
+            </div>
+        </div>
+        <div class="editor-label">
+
+            <b>Loại sản phẩm:</b>
+        </div>
+        <div class="editor-field">
+
+            @Html.DropDownList("MaLoai")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TenHang)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TenHang)
+            @Html.ValidationMessageFor(model => model.TenHang)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MoTa, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="MoTa">@Model.MoTa</textarea>
+            </div>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HinhAnh, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                Chọn ảnh mới
+                <input type="file" name="fileUpload" />
+                <img src="~/Content/HinhAnh/@Model.HinhAnh" width="150" height="150" /> (Ảnh hiện tại)
+                @*@"thong bao trung"@*@
+                @ViewBag.Thongbao
+            </div>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gia)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Gia)
+            @Html.ValidationMessageFor(model => model.Gia)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("VỀ TRANG SẢN PHẨM", "SanPham")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

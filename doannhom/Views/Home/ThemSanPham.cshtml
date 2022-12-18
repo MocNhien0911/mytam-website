@@ -1,0 +1,80 @@
+﻿@model doannhom.Models.MatHang
+
+@{
+    ViewBag.Title = "ThemSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thêm Sản Phẩm</h2>
+
+@using (Html.BeginForm("Them", "Home", FormMethod.Post, new { enctype="multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        <div class="editor-label">
+            @*@Html.LabelFor(model => model.MaLoai)*@
+            <b>Loại sản phẩm:</b>
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.MaLoai)
+            @Html.ValidationMessageFor(model => model.MaLoai)*@
+            @Html.DropDownList("MaLoai")
+        </div>
+
+        <div class="editor-label">
+            @*@Html.LabelFor(model => model.TenHang)*@
+            <b>Tên sản phẩm:</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TenHang)
+            @Html.ValidationMessageFor(model => model.TenHang)
+        </div>
+
+        <div class="editor-label">
+            @*@Html.LabelFor(model => model.MoTa)*@
+            <b>Mô tả:</b>
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.MoTa)
+            @Html.ValidationMessageFor(model => model.MoTa)*@
+            <textarea name="MoTa"> Mô tả thông tin sản phẩm </textarea>
+        </div>
+
+        <div class="editor-label">
+            @*@Html.LabelFor(model => model.HinhAnh)*@
+            <b>Hình ảnh:</b>
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.HinhAnh)
+            @Html.ValidationMessageFor(model => model.HinhAnh)*@
+            <input type="file" name="upHinh" />
+        </div>
+
+        <div class="editor-label">
+            @*@Html.LabelFor(model => model.Gia)*@
+            <b>Giá:</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Gia)
+            @Html.ValidationMessageFor(model => model.Gia)
+        </div>
+
+        <p>
+            <input type="submit" value="Thêm" class="btn btn-success" />
+        </p>
+    </fieldset>
+}
+
+<script src="~/Content/tinymce/js/tinymce/tinymce.min.js"></script>
+<script> tinymce.init({ selector: 'textarea' });</script>
+<div>
+    @Html.ActionLink("VỀ TRANG SẢN PHẨM", "SanPham", "Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

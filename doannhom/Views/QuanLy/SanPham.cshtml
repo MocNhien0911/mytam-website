@@ -1,0 +1,82 @@
+﻿@model IEnumerable<doannhom.Models.MatHang>
+
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length) <text>...</text>
+    }
+}
+
+@{
+    ViewBag.Title = "SanPham";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2>Sản phẩm</h2>
+<p>
+    <br />@Html.ActionLink("Thêm Sản Phẩm", "ThemSanPham", "QuanLy")
+</p>
+<table>
+    <tr>
+        <th width="120">
+            Mã Hàng
+        </th>
+        <th width="120">
+            Mã Loại
+        </th>
+        <th width="120">
+            Tên Mặt Hàng
+        </th>
+        <th>
+            Mô Tả
+        </th>
+        <th>
+            Hình Ảnh
+        </th>
+        <th>
+            Giá
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaLoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHang)
+            </td>
+            <td>
+                @Truncate(item.MoTa, 100)
+            </td>
+            <td>
+                <img src="~/Content/HinhAnh/@item.HinhAnh" width="150" height="150" />
+            </td>
+            <td>
+                @String.Format("{0:0,0}", item.Gia) VNĐ
+            </td>
+            <td>
+                @item.SoLuong
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "SuaSanPham", new { id = item.MaHang }) |
+                @Html.ActionLink("Chi tiết", "ChiTietSanPham", new { id = item.MaHang }) |
+                @Html.ActionLink("Xóa", "XoaSanPham", new { id = item.MaHang })
+            </td>
+        </tr>
+    }
+
+</table>

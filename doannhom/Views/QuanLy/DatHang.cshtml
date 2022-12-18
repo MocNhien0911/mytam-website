@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2>Nhập hàng</h2>
+<form action="/QuanLy/XLDH" method="post">
+    <input type="text" name="txtmahang" placeholder="Mã hàng" /><br />
+    <input type="text" name="txtmanhapp" placeholder="Mã nhà phân phối" /><br />
+    <input type="text" name="txtsl" placeholder="Số lượng" /><br />
+    <select name="cbbDVT" id="cbbDVT">
+        <option selected="selected" value="Hộp">Hộp</option>
+        <option value="Túi">Túi</option>
+        <option value="Gói">Gói</option>
+        <option value="Bao">Bao</option>
+    </select> <br />
+    <input type="submit" value="Đặt hàng" />
+</form>

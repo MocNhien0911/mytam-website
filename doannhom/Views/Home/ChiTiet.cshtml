@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ds1 = ViewBag.list1 as List<MatHang>;
+}
+@using doannhom.Models
+@model MatHang
+
+<h2>Chi tiết mặt hàng</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img height="200" width="200" src="~/Content/HinhAnh/@Model.HinhAnh" />
+        </div>
+        <div class="col-md-8">
+            <p>Tên hàng: @Model.TenHang</p>
+            <p>Mô tả: @Model.MoTa</p>
+            <p>Giá: @String.Format("{0:0,0}", Model.Gia) VNĐ</p>
+            @Html.ActionLink("Chọn mua", "ChonMua", "Home", new { id = @Model.MaHang }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+    <div class="row">CÁC SẢN PHẨM CÙNG LOẠI</div>
+    <div class="row">
+        @foreach (var mh in ds1)
+        {
+            <div class="col-md-2">
+                <img height="150" width="150" src="~/Content/HinhAnh/@mh.HinhAnh" />
+                @Html.ActionLink(@mh.TenHang, "ChiTiet", "Home", new { id = @mh.MaHang }, new { @class = "nav-link" })
+            </div>
+        }
+    </div>
+
+</div>

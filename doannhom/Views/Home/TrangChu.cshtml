@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "TrangChu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using doannhom.Models
+@model List<MatHang>
+
+<h2></h2>
+
+<div class="product-group">
+    <div class="row">
+        @if(Model.Count == 0)
+        {
+            <text>Không tìm thấy sản phẩm</text>
+        }
+
+        @foreach(var mh in Model)
+        {
+            <div class="col-lg-3 card mr-2 mt-2 text-center">
+                <div class="card-product">
+                    <img class="card-img-top" height="200" width="200" src="~/Content/HinhAnh/@mh.HinhAnh" alt="Ảnh sản phẩm" />
+                    <div class="card-body">
+                        <h5 class="card-title">@mh.TenHang</h5>
+                        @Html.ActionLink("Chi tiết", "ChiTiet", "Home", new { id = @mh.MaHang }, new { @class = "btn btn-danger" })
+
+                        @if(mh.SoLuong <= 0)
+                        {
+                            <text>Hết hàng</text>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Chọn", "ChonMua", "Home", new { id = @mh.MaHang }, new { @class = "btn btn-danger" })
+                        }                     
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/jquery-3.3.1.min.js"></script>

@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "QLyDonHangChuaGiao";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+    var stt = 0;
+}
+@using doannhom.Models
+@model List<HoaDon>
+
+<h2>Đơn hàng chưa giao</h2>
+<form action="/QuanLy/CapNhatGiaoHang" method="post">
+    <table class="table">
+        <tr>
+            <th class="w-10">
+                STT
+            </th>
+            <th class="w-10">
+                Ngày đặt hàng
+            </th>
+            <th class="w-30">
+                Thông tin khách hàng
+            </th>
+            <th class="w-10">
+                Ngày hẹn giao
+            </th>
+            <th class="w-40">
+                Mã hóa đơn
+            </th>
+            <th class="w-10">
+                Tình trạng
+            </th>
+            <th class="w-10">
+                Duyệt giao hàng
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            stt++;
+            <tr>
+                <td> @stt </td>
+                <td>
+                    @String.Format("{0:dd-MM-yyyy}", item.NgayHoaDon)
+                </td>
+                <td>
+                    <p class="text-center">@Html.DisplayFor(modelItem => item.MaKH)</p>
+                    <p>@item.KhachHang.TenKH (@item.KhachHang.DienThoai)</p>
+                    <p>@item.KhachHang.DiaChi</p>
+                </td>
+                <td>
+                    @String.Format("{0:dd-MM-yyyy}", item.NgayGiao)
+                </td>
+                <td class="text-center">
+
+                    <div class="nav navbar">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" id="dsct" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                                @item.MaHD
+                                @Html.Action("ThongKe", "QuanLy", new { mhd = item.MaHD })
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dsct">
+                                @Html.Action("LietKeHoaDon", "QuanLy", new { mhd = @item.MaHD })
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    @if (item.NgayThanhToan == null)
+                    {
+                        <text>Chưa giao hàng</text>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="abc" checked disabled /> <text>Đã giao</text>
+                    }
+                </td>
+
+                <td>
+                    @if (item.NgayThanhToan == null)
+                    {
+                        <input type="checkbox" name="@stt" value="@item.MaHD" />
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="text-center" colspan="7">
+                <input type="hidden" name="tong" value="@stt" />
+                <input type="submit" value="Giao hàng ngay" />
+            </td>
+        </tr>
+    </table>
+</form>
